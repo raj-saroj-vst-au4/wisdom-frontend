@@ -1,0 +1,9 @@
+db should have :
+
+
+Name 
+Number
+Active: boolean
+class: 
+fees:
+payments: [ ] also show last payment
