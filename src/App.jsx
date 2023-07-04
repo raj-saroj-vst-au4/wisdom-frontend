@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import List from "./components/List";
-import FeesPage from "./views/FeesPage";
+import FeesPage from "./views/FeesPage.jsx";
 import Layout from "./Layout";
 
 const fetchUserData = async () => {
@@ -11,7 +11,7 @@ const fetchUserData = async () => {
   return response.json();
 };
 
-const App = () => {
+const App= () => {
   const [studentsData, setStudentsData] = useState(null);
 
   useEffect(() => {
