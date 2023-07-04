@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_URL = "https://wisdom-backend-zvv3.onrender.com";
 
 function FeeModal({
   showModal,
@@ -17,26 +18,21 @@ function FeeModal({
 
   const handleFee = async (action, studentid, year, month, fee, student) => {
     try {
-      const response = await fetch(
-        `https://wisdom-backend-zvv3.onrender.com/${action}/${studentid}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            year,
-            month,
-            fee,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/${action}/${studentid}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          year,
+          month,
+          fee,
+        }),
+      });
       if (response.ok) {
         toggleModal();
         setNewFee("");
-        const res = await fetch(
-          `https://wisdom-backend-zvv3.onrender.com/fetchFee/${student._id}`
-        );
+        const res = await fetch(`${API_URL}/${student._id}`);
         if (res.ok) {
           const data = await res.json();
           const dataToPass = { stddata: student, feedata: data };

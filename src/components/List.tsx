@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_URL = "https://wisdom-backend-zvv3.onrender.com";
 
 function List({ Studentsdb }) {
   const navigate = useNavigate();
@@ -32,9 +33,7 @@ function List({ Studentsdb }) {
 
   const handleFeeStatus = async (student) => {
     try {
-      const response = await fetch(
-        `https://wisdom-backend-zvv3.onrender.com/fetchFee/${student._id}`
-      );
+      const response = await fetch(`${API_URL}/fetchFee/${student._id}`);
       if (response.ok) {
         const data = await response.json();
         const dataToPass = { stddata: student, feedata: data };
