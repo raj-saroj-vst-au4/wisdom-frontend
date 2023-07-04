@@ -1,4 +1,4 @@
-import React, { ReactDOM, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import List from "./components/List";
 import FeesPage from "./views/FeesPage";

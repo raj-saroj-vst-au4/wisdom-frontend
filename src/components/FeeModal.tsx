@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function FeeModal({
   showModal,
   toggleModal,
@@ -8,6 +10,35 @@ function FeeModal({
   feemonth,
   feestatus,
 }) {
+  const [newFee, setNewFee] = useState("");
+  const handleAddFee = async (studentid, year, month, fee) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8800/addFee/${studentid}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            year,
+            month,
+            fee,
+          }),
+        }
+      );
+      if (response.ok) {
+        console.log(response);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  function handleFeeChange(event) {
+    setNewFee(event.target.value);
+  }
+
   function getMonthName(monthNumber) {
     const date = new Date();
     date.setMonth(monthNumber);
@@ -40,7 +71,11 @@ function FeeModal({
           <div className="modal-body">
             <p>
               Status of Fee :{" "}
-              {feestatus ? "Paid Fee for " : "Unpaid Fee Pending for "}{" "}
+              {feestatus
+                ? `Paid ${feestatus.fee} on ${new Date(
+                    feestatus.time
+                  ).getDate()}`
+                : `Unpaid Fee Pending for `}{" "}
               {getMonthName(feemonth)} {feeyear}
             </p>
             <br />
@@ -55,6 +90,17 @@ function FeeModal({
                 <i className="bi bi-whatsapp"> Whatsapp </i>
               </a>
             </p>
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text">Load Fee : Rs.</span>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter fees to save"
+                onChange={handleFeeChange}
+              />
+            </div>
           </div>
           <div className="modal-footer">
             <button
@@ -70,7 +116,11 @@ function FeeModal({
                 Mark as Unpaid
               </button>
             ) : (
-              <button type="button" className="btn btn-success">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={() => handleAddFee(feedbid, feeyear, feemonth, newFee)}
+              >
                 Mark as Paid
               </button>
             )}

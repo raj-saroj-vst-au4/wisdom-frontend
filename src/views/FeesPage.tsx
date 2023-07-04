@@ -13,6 +13,7 @@ function FeesPage() {
   const openModal = (name, phone, feedbid, year, month, status) => {
     setShowModal(true);
     setModalData({ name, phone, feedbid, year, month, status });
+    console.log(status);
   };
 
   const closeModal = () => {
@@ -57,7 +58,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       0,
                       feedata.year[yearly][0]
@@ -82,7 +83,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       1,
                       feedata.year[yearly][1]
@@ -106,7 +107,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       2,
                       feedata.year[yearly][2]
@@ -130,7 +131,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       3,
                       feedata.year[yearly][3]
@@ -156,7 +157,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       4,
                       feedata.year[yearly][4]
@@ -180,7 +181,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       5,
                       feedata.year[yearly][5]
@@ -204,7 +205,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       6,
                       feedata.year[yearly][6]
@@ -228,7 +229,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       7,
                       feedata.year[yearly][7]
@@ -254,7 +255,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       8,
                       feedata.year[yearly][8]
@@ -278,7 +279,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       9,
                       feedata.year[yearly][9]
@@ -302,7 +303,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       10,
                       feedata.year[yearly][10]
@@ -326,7 +327,7 @@ function FeesPage() {
                     openModal(
                       student.name,
                       student.number,
-                      feedata._id,
+                      student._id,
                       yearly,
                       11,
                       feedata.year[yearly][11]
