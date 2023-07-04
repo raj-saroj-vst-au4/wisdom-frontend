@@ -13,7 +13,6 @@ function FeesPage() {
   const openModal = (name, phone, feedbid, year, month, status) => {
     setShowModal(true);
     setModalData({ name, phone, feedbid, year, month, status });
-    console.log(status);
   };
 
   const closeModal = () => {
@@ -31,6 +30,7 @@ function FeesPage() {
         feeyear={modalData.year}
         feemonth={modalData.month}
         feestatus={modalData.status}
+        student={student}
       />
       {feedata.year.length === 0 && <h3>No Fee Records</h3>}
       {feedataArray.map((yearly, index) => (
@@ -54,7 +54,7 @@ function FeesPage() {
                       ? "btn btn-secondary"
                       : "btn btn-danger"
                   }
-                  onClick={() =>
+                  onClick={(event) =>
                     openModal(
                       student.name,
                       student.number,

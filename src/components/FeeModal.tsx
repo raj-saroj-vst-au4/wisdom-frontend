@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FeeModal({
   showModal,
@@ -9,12 +10,15 @@ function FeeModal({
   feeyear,
   feemonth,
   feestatus,
+  student,
 }) {
+  const navigate = useNavigate();
   const [newFee, setNewFee] = useState("");
-  const handleAddFee = async (studentid, year, month, fee) => {
+
+  const handleFee = async (action, studentid, year, month, fee, student) => {
     try {
       const response = await fetch(
-        `http://localhost:8800/addFee/${studentid}`,
+        `https://wisdom-backend-zvv3.onrender.com/${action}/${studentid}`,
         {
           method: "POST",
           headers: {
@@ -28,7 +32,17 @@ function FeeModal({
         }
       );
       if (response.ok) {
-        console.log(response);
+        toggleModal();
+        setNewFee("");
+        const res = await fetch(
+          `https://wisdom-backend-zvv3.onrender.com/fetchFee/${student._id}`
+        );
+        if (res.ok) {
+          const data = await res.json();
+          const dataToPass = { stddata: student, feedata: data };
+          const userSpecificPageUrl = `/feestatus/${student.name}`;
+          navigate(userSpecificPageUrl, { state: dataToPass });
+        }
       }
     } catch (e) {
       console.log(e);
@@ -112,14 +126,29 @@ function FeeModal({
             </button>
 
             {feestatus ? (
-              <button type="button" className="btn btn-danger">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() =>
+                  handleFee("delFee", feedbid, feeyear, feemonth, 0, student)
+                }
+              >
                 Mark as Unpaid
               </button>
             ) : (
               <button
                 type="button"
                 className="btn btn-success"
-                onClick={() => handleAddFee(feedbid, feeyear, feemonth, newFee)}
+                onClick={() =>
+                  handleFee(
+                    "addFee",
+                    feedbid,
+                    feeyear,
+                    feemonth,
+                    newFee,
+                    student
+                  )
+                }
               >
                 Mark as Paid
               </button>

@@ -29,6 +29,7 @@ function List({ Studentsdb }) {
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchVal(event.target.value);
   };
+
   const handleFeeStatus = async (student) => {
     try {
       const response = await fetch(
