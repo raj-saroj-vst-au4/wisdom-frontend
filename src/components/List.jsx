@@ -7,13 +7,6 @@ function List({ Studentsdb }) {
   const [filtered, setFiltered] = useState(Studentsdb);
   const [searchVal, setSearchVal] = useState("");
 
-  interface Studentsdb {
-    name: string;
-    class: string;
-    batch: number;
-    fees: number;
-    number: string;
-  }
 
   useEffect(() => {
     if (searchVal.toLowerCase() === "") {
@@ -27,7 +20,7 @@ function List({ Studentsdb }) {
     }
   }, [searchVal]);
 
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (event) => {
     setSearchVal(event.target.value);
   };
 
