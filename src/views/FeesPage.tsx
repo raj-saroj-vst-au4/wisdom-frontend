@@ -2,6 +2,12 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import FeeModal from "../components/FeeModal";
 
+const monthList = [
+  ["Jan", "Feb", "Mar", "Apr"],
+  ["May", "Jun", "Jul", "Aug"],
+  ["Sep", "Oct", "Nov", "Dec"],
+];
+
 function FeesPage() {
   const location = useLocation();
   const student = location.state.stddata;
@@ -42,301 +48,42 @@ function FeesPage() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][0]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 0
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      0,
-                      feedata.year[yearly][0]
-                    )
-                  }
-                >
-                  Jan
-                </button>
-              </td>
-
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][1]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 1
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      1,
-                      feedata.year[yearly][1]
-                    )
-                  }
-                >
-                  Feb
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][2]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 2
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      2,
-                      feedata.year[yearly][2]
-                    )
-                  }
-                >
-                  Mar
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][3]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 3
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      3,
-                      feedata.year[yearly][3]
-                    )
-                  }
-                >
-                  Apr
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][4]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 4
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      4,
-                      feedata.year[yearly][4]
-                    )
-                  }
-                >
-                  May
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][5]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 5
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      5,
-                      feedata.year[yearly][5]
-                    )
-                  }
-                >
-                  Jun
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][6]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 6
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      6,
-                      feedata.year[yearly][6]
-                    )
-                  }
-                >
-                  Jul
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][7]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 7
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      7,
-                      feedata.year[yearly][7]
-                    )
-                  }
-                >
-                  Aug
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][8]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 8
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      8,
-                      feedata.year[yearly][8]
-                    )
-                  }
-                >
-                  Sep
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][9]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 9
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      9,
-                      feedata.year[yearly][9]
-                    )
-                  }
-                >
-                  Oct
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][10]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 10
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      10,
-                      feedata.year[yearly][10]
-                    )
-                  }
-                >
-                  Nov
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  className={
-                    feedata.year[yearly][11]
-                      ? "btn btn-success"
-                      : currDate.getFullYear() * 100 + currDate.getMonth() <
-                        parseInt(yearly) * 100 + 11
-                      ? "btn btn-secondary"
-                      : "btn btn-danger"
-                  }
-                  onClick={() =>
-                    openModal(
-                      student.name,
-                      student.number,
-                      feedata._id,
-                      yearly,
-                      11,
-                      feedata.year[yearly][11]
-                    )
-                  }
-                >
-                  Dec
-                </button>
-              </td>
-            </tr>
+            {monthList.map((mList, iIndex) => {
+              return (
+                <tr>
+                  {mList.map((month, jIndex) => {
+                    const index = mList.length * iIndex + jIndex;
+                    return (
+                      <td className="text-center" key={month}>
+                        <button
+                          className={
+                            feedata.year[yearly][index]
+                              ? "btn btn-success"
+                              : currDate.getFullYear() * 100 +
+                                  currDate.getMonth() <
+                                parseInt(yearly) * 100 + 0
+                              ? "btn btn-secondary"
+                              : "btn btn-danger"
+                          }
+                          onClick={() =>
+                            openModal(
+                              student.name,
+                              student.number,
+                              feedata._id,
+                              yearly,
+                              0,
+                              feedata.year[yearly][index]
+                            )
+                          }
+                        >
+                          {month}
+                        </button>
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       ))}
