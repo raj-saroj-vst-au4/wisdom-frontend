@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_URL = "https://wisdom-backend-zvv3.onrender.com";
+const API_URL = "http://localhost:8800";
 
 function FeeModal({
   showModal,
@@ -32,7 +32,7 @@ function FeeModal({
       if (response.ok) {
         toggleModal();
         setNewFee("");
-        const res = await fetch(`${API_URL}/${student._id}`);
+        const res = await fetch(`${API_URL}/fetchFee/${student._id}`);
         if (res.ok) {
           const data = await res.json();
           const dataToPass = { stddata: student, feedata: data };
