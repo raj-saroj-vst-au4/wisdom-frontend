@@ -8,7 +8,7 @@ import StudentsManagement from "./views/StudentsManagement";
 
 const fetchUserData = async () => {
   const response = await fetch(
-    "https://tricky-moth-shoe.cyclic.app"
+    "https://tricky-moth-shoe.cyclic.app/fetchStudents"
   );
   return response.json();
 };
