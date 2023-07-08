@@ -8,7 +8,7 @@ import StudentsManagement from "./views/StudentsManagement";
 
 const fetchUserData = async () => {
   const response = await fetch(
-    "https://wisdom-backend-zvv3.onrender.com/fetchStudents"
+    "https://tricky-moth-shoe.cyclic.app"
   );
   return response.json();
 };

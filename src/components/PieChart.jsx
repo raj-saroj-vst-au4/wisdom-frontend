@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Chart } from "react-google-charts";
-const API_URL = "https://wisdom-backend-zvv3.onrender.com";
+const API_URL = "https://tricky-moth-shoe.cyclic.app";
 
 
 export const options = {

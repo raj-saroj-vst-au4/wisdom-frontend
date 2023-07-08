@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_URL = "https://wisdom-backend-zvv3.onrender.com";
+const API_URL = "https://tricky-moth-shoe.cyclic.app";
 
 function List({ Studentsdb }) {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddStudentModal from "../components/AddStudentModal";
-const API_URL = "https://wisdom-backend-zvv3.onrender.com";
+const API_URL = "https://tricky-moth-shoe.cyclic.app";
 
 function StudentsManagement({ Studentsdb }) {
   const navigate = useNavigate();
