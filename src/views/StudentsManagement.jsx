@@ -62,7 +62,7 @@ function StudentsManagement({ Studentsdb }) {
     try {
       const response = await fetch(`${API_URL}/enableStudent/${studentid}`);
       if (response.ok) {
-        navigate("/")
+        window.location.replace('/')
       }
     } catch (e) {
       console.log(e);
