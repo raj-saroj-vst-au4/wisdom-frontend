@@ -10,6 +10,8 @@ function FeesPage() {
   const [modalData, setModalData] = useState("");
   const feedataArray = Object.keys(feedata.year);
   const currDate = new Date();
+  const stdjoiningdate = new Date(student.joiningdate)
+  const stdyearmonth = stdjoiningdate.getFullYear() * 100 + stdjoiningdate.getMonth()
   const openModal = (name, phone, feedbid, year, month, status) => {
     setShowModal(true);
     setModalData({ name, phone, feedbid, year, month, status });
@@ -32,6 +34,7 @@ function FeesPage() {
         feestatus={modalData.status}
         student={student}
       />
+      <h3 className="text-center mt-3">{student.name} Joined on {stdjoiningdate.toLocaleString('default', { month: 'short' }) + " " + stdjoiningdate.getFullYear()}</h3>
       {feedata.year.length === 0 && <h3>No Fee Records</h3>}
       {feedataArray.map((yearly, index) => (
         <table className="table table-dark mt-4" key={index}>
@@ -47,7 +50,9 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
-                    feedata.year[yearly][0]
+                    stdyearmonth > parseInt(yearly) * 100 + 0
+                      ? "btn btn-disabled"
+                      : feedata.year[yearly][0]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
                         parseInt(yearly) * 100 + 0
@@ -72,6 +77,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 1
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][1]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -96,6 +103,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 2
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][2]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -120,6 +129,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 3
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][3]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -146,6 +157,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 4
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][4]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -170,6 +183,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 5
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][5]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -194,6 +209,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 6
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][6]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -218,6 +235,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 7
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][7]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -244,6 +263,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 8
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][8]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -268,6 +289,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 9
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][9]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -292,6 +315,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 10
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][10]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <
@@ -316,6 +341,8 @@ function FeesPage() {
               <td className="text-center">
                 <button
                   className={
+                    stdyearmonth > parseInt(yearly) * 100 + 11
+                      ? "btn btn-disabled" :
                     feedata.year[yearly][11]
                       ? "btn btn-success"
                       : currDate.getFullYear() * 100 + currDate.getMonth() <

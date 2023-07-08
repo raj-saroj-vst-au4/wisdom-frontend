@@ -17,6 +17,11 @@ function FeeModal({
   const [newFee, setNewFee] = useState("");
 
   const handleFee = async (action, studentid, year, month, fee, student) => {
+    if(action === "addFee"){
+      if (isNaN(fee) || fee < 50){
+        return alert("Enter Fees Amount to add Fee")
+      }
+    }
     try {
       const response = await fetch(`${API_URL}/${action}/${studentid}`, {
         method: "POST",
@@ -79,7 +84,7 @@ function FeeModal({
             </button>
           </div>
           <div className="modal-body">
-            <p>
+          <p>
               Status of Fee :{" "}
               {feestatus
                 ? `Paid ${feestatus.fee} on ${new Date(
@@ -88,18 +93,23 @@ function FeeModal({
                 : `Unpaid Fee Pending for `}{" "}
               {getMonthName(feemonth)} {feeyear}
             </p>
-            <br />
-            <p>
-              Send Reminder :{" "}
-              <a
-                href={`https://api.whatsapp.com/send?phone=${phone}&text=Hi, this is ${name}'s tution teacher from wisdom classes. This is a reminder for payment of tution fees for ${getMonthName(
-                  feemonth
-                )}.`}
-                className="btn btn-success"
-              >
-                <i className="bi bi-whatsapp"> Whatsapp </i>
-              </a>
-            </p>
+                  <br />
+                  {
+              
+              !feestatus ? (
+                  <p>
+                    Send Reminder :{" "}
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=${phone}&text=Hi, this is ${name}'s tution teacher from wisdom classes. This is a reminder for payment of tution fees for ${getMonthName(
+                        feemonth
+                      )}.`}
+                      className="btn btn-success"
+                    >
+                      <i className="bi bi-whatsapp"> Whatsapp </i>
+                    </a>
+                  </p>) : " "
+            
+            }
             <div className="input-group mb-3">
               <div className="input-group-prepend">
                 <span className="input-group-text">Load Fee : Rs.</span>
@@ -108,6 +118,7 @@ function FeeModal({
                 type="text"
                 className="form-control"
                 placeholder="Enter fees to save"
+                required="required"
                 onChange={handleFeeChange}
               />
             </div>

@@ -43,7 +43,7 @@ function Navbar() {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/feestatus">
+                  <Link className="dropdown-item" to="/fees">
                     Fees Management
                   </Link>
                 </li>

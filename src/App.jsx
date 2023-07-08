@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import List from "./components/List";
 import FeesPage from "./views/FeesPage.jsx";
 import Layout from "./Layout";
+import PieChart from "./components/PieChart";
+import StudentsManagement from "./views/StudentsManagement";
 
 const fetchUserData = async () => {
   const response = await fetch(
@@ -25,9 +27,14 @@ const App= () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<Home />} /> */}
+         <Route index element={studentsData ? <PieChart Studentsdb={studentsData}/> : <div className="container mt-5">" Loading Data "</div>} /> 
+         <Route path="students" element={ 
+            <div className="container mt-5"> 
+              {studentsData ? (<StudentsManagement Studentsdb={studentsData} />) : (<div className="container mt-5">" Loading Data "</div>)} 
+            </div>}
+          /> 
           <Route
-            path="students"
+            path="fees"
             element={
               <div className="container mt-5">
                 {studentsData ? (

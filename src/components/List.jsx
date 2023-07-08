@@ -48,15 +48,12 @@ function List({ Studentsdb }) {
         <nav className="navbar navbar-light bg-light">
           <form className="d-flex">
             <input
-              className="form-control me-2"
+              className="form-control"
               type="search"
-              placeholder="Search"
+              placeholder="Search Student"
               aria-label="Search"
               onChange={(e) => handleSearch(e)}
             />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
           </form>
         </nav>
       </div>
@@ -92,28 +89,22 @@ function List({ Studentsdb }) {
                   aria-label="Basic example"
                 >
                   <a
-                    href={`tel:${student.number}`}
-                    className="btn btn-secondary"
-                  >
-                    <i className="bi bi-telephone-forward"> Call</i>
-                  </a>
-                  <a
                     href={`https://wa.me/${student.number}`}
                     className="btn btn-success"
                   >
                     <i className="bi bi-whatsapp"> Whatsapp </i>
                   </a>
-                  <button
-                    onClick={() => handleFeeStatus(student)}
+                  <a
+                    href={`tel:${student.number}`}
                     className="btn btn-secondary"
                   >
-                    <i className="bi bi-wallet2"> Check Fee </i>
-                  </button>
+                    <i className="bi bi-telephone-forward"> Call</i>
+                  </a>
                   <button
-                    onClick={() => handlePromo(student._id)}
+                    onClick={() => handleFeeStatus(student)}
                     className="btn btn-primary"
                   >
-                    <i className="bi bi bi-microsoft-teams"> Promote </i>
+                    <i className="bi bi-wallet2"> Check Fee </i>
                   </button>
                 </div>
               </div>
