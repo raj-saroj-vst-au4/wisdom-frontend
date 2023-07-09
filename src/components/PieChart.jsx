@@ -67,8 +67,9 @@ const PieChart = ({Studentsdb}) => {
     <Card.Body>
     <Card.Title>Pending Fees</Card.Title>
     <ul className="list-group">
-        {pd?.map((p)=>( 
-            <li key={p.id} className={"list-group-item list-group-item-" + (p.pendingmonths > 2 ? "danger" : "warning")}>{p.name} has {p.pendingmonths} months fees pending !</li>
+{pd?.map((p)=>( 
+            p.pendingmonths > 0 ? 
+            (<li key={p.id} className={"list-group-item list-group-item-" + (p.pendingmonths > 2 ? "danger" : "warning")}>{p.name} has {p.pendingmonths} months fees pending !</li>) : ""
         ))}
         
     </ul>
