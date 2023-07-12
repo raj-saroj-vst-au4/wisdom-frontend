@@ -1,19 +1,57 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_URL = "https://tricky-moth-shoe.cyclic.app";
+import Loader from "../components/Loader";
 
-function List({ Studentsdb }) {
-  const navigate = useNavigate();
-  const [filtered, setFiltered] = useState(Studentsdb);
+function List({ API_URL }) {
+  const [Studentsdb, setStudentsdb] = useState([]);
+  const activeData = Studentsdb.filter((stdnt) => stdnt.active);
+  const [filtered, setFiltered] = useState(activeData);
   const [searchVal, setSearchVal] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
+  if (!token || JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()) {
+    return window.location.replace("/login");
+  }
+
+  const fetchUserData = async () => {
+    const response = await fetch(`${API_URL}/fetchStudents`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+    if (response.ok) {
+      return response.json();
+    } else if (response.status === 401) {
+      return window.location.replace("/login");
+    }
+  };
+
+  useEffect(() => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
+    setIsLoading(true);
+    fetchUserData()
+      .then((data) => {
+        setStudentsdb(data.data);
+        return data.data;
+      })
+      .then((objData) => setFiltered(objData.filter((stdnt) => stdnt.active)))
+      .catch((e) => console.log("Error Fetching data:", e));
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     if (searchVal.toLowerCase() === "") {
-      setFiltered(Studentsdb);
+      setFiltered(activeData);
     } else {
       setFiltered(
-        Studentsdb.filter((student) => {
+        activeData.filter((student) => {
           return student.name.toLowerCase().includes(searchVal.toLowerCase());
         })
       );
@@ -25,25 +63,36 @@ function List({ Studentsdb }) {
   };
 
   const handleFeeStatus = async (student) => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     try {
-      const response = await fetch(`${API_URL}/fetchFee/${student._id}`);
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/fetchFee/${student._id}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         const dataToPass = { stddata: student, feedata: data };
         const userSpecificPageUrl = `/feestatus/${student.name}`;
         navigate(userSpecificPageUrl, { state: dataToPass });
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
       }
     } catch (e) {
       console.log(e);
     }
-  };
-
-  const handlePromo = (stdid) => {
-    return console.log(stdid);
+    setIsLoading(false);
   };
 
   return (
     <>
+      <div>{isLoading ? <Loader /> : ""}</div>
       <div className="d-flex justify-content-center">
         <nav className="navbar navbar-light bg-light">
           <form className="d-flex">

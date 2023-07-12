@@ -1,13 +1,42 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddStudentModal from "../components/AddStudentModal";
-const API_URL = "https://tricky-moth-shoe.cyclic.app";
+import Loader from "../components/Loader";
 
-function StudentsManagement({ Studentsdb }) {
+function StudentsManagement({ API_URL }) {
+  const [Studentsdb, setStudentsdb] = useState([]);
   const navigate = useNavigate();
   const [filtered, setFiltered] = useState(Studentsdb);
   const [searchVal, setSearchVal] = useState("");
   const [showStudentModal, setShowStudentModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
+    setIsLoading(true);
+    const fetchStudents = async () => {
+      const response = await fetch(`${API_URL}/fetchStudents`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
+      if (response.ok) {
+        const objectData = await response.json();
+        setStudentsdb(objectData.data);
+        setFiltered(objectData.data);
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
+      }
+      setIsLoading(false);
+    };
+    fetchStudents();
+  }, []);
 
   const openModal = () => {
     setShowStudentModal(true);
@@ -18,6 +47,12 @@ function StudentsManagement({ Studentsdb }) {
   };
 
   useEffect(() => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     if (searchVal.toLowerCase() === "") {
       setFiltered(Studentsdb);
     } else {
@@ -34,13 +69,25 @@ function StudentsManagement({ Studentsdb }) {
   };
 
   const handleFeeStatus = async (student) => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     try {
-      const response = await fetch(`${API_URL}/fetchFee/${student._id}`);
+      const response = await fetch(`${API_URL}/fetchFee/${student._id}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         const dataToPass = { stddata: student, feedata: data };
         const userSpecificPageUrl = `/feestatus/${student.name}`;
         navigate(userSpecificPageUrl, { state: dataToPass });
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
       }
     } catch (e) {
       console.log(e);
@@ -48,46 +95,94 @@ function StudentsManagement({ Studentsdb }) {
   };
 
   const handleDisable = async (studentid) => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     try {
-      const response = await fetch(`${API_URL}/disableStudent/${studentid}`);
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/disableStudent/${studentid}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
       if (response.ok) {
-        window.location.replace('/')
+        window.location.replace("/");
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
       }
     } catch (e) {
       console.log(e);
     }
+    setIsLoading(false);
   };
 
   const handleEnable = async (studentid) => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     try {
-      const response = await fetch(`${API_URL}/enableStudent/${studentid}`);
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/enableStudent/${studentid}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
       if (response.ok) {
-        window.location.replace('/')
+        window.location.replace("/");
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
       }
     } catch (e) {
       console.log(e);
     }
+    setIsLoading(false);
   };
 
   const handlePromo = async (studentid) => {
+    if (
+      !token ||
+      JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
+    ) {
+      return window.location.replace("/login");
+    }
     try {
-        const response = await fetch(`${API_URL}/promoteStudent/${studentid}`);
-        if (response.ok) {
-          navigate("/")
-        }
-      } catch (e) {
-        console.log(e);
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/promoteStudent/${studentid}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      });
+      if (response.ok) {
+        navigate("/");
+      } else if (response.status === 401) {
+        return window.location.replace("/login");
       }
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoading(false);
   };
 
   return (
     <>
-        <AddStudentModal showModal={showStudentModal} toggleModal={closeModal}/>
+      <div>{isLoading ? <Loader /> : ""}</div>
+
+      <AddStudentModal
+        showModal={showStudentModal}
+        toggleModal={closeModal}
+        API_URL={API_URL}
+      />
       <div className="d-flex justify-content-center">
         <nav className="navbar navbar-light bg-light">
-        <button className="btn btn-outline-primary me-2" onClick={openModal}>
-                <i className="bi bi-person-plus"> ADD</i>
-            </button>
+          <button className="btn btn-outline-primary me-2" onClick={openModal}>
+            <i className="bi bi-person-plus"> ADD</i>
+          </button>
           <form className="d-flex">
             <input
               className="form-control me-2"
@@ -100,7 +195,7 @@ function StudentsManagement({ Studentsdb }) {
         </nav>
       </div>
       <div className="accordion" id="accordionExample">
-        {filtered.length === 0 && <h3>No records</h3>}
+        {filtered.length === 0 && <h3> No Records Found</h3>}
         {filtered.map((student, index) => (
           <div className="accordion-item" key={index}>
             <h2 className="accordion-header">
@@ -142,47 +237,21 @@ function StudentsManagement({ Studentsdb }) {
                   >
                     <i className="bi bi-wallet2"> Fee </i>
                   </button>
-                  {student.active ? (<button
-                    onClick={()=> handleDisable(student._id)}
-                    className="btn btn-danger"
-                  >
-                    <i className="bi bi-activity"> Disable </i>
-                  </button>) : (<button
-                    onClick={()=> handleEnable(student._id)}
-                    className="btn btn-success"
-                  >
-                    <i className="bi bi-activity"> Enable </i>
-                  </button>)}
-                  
-
-                  {/* {feestatus ? (
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() =>
-                  handleFee("delFee", feedbid, feeyear, feemonth, 0, student)
-                }
-              >
-                Mark as Unpaid
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={() =>
-                  handleFee(
-                    "addFee",
-                    feedbid,
-                    feeyear,
-                    feemonth,
-                    newFee,
-                    student
-                  )
-                }
-              >
-                Mark as Paid
-              </button>
-            )} */}
+                  {student.active ? (
+                    <button
+                      onClick={() => handleDisable(student._id)}
+                      className="btn btn-danger"
+                    >
+                      <i className="bi bi-activity"> Disable </i>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleEnable(student._id)}
+                      className="btn btn-success"
+                    >
+                      <i className="bi bi-activity"> Enable </i>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

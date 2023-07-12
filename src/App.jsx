@@ -1,51 +1,38 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import List from "./components/List";
 import FeesPage from "./views/FeesPage.jsx";
 import Layout from "./Layout";
 import PieChart from "./components/PieChart";
 import StudentsManagement from "./views/StudentsManagement";
+import { LoginPage } from "./views/LoginPage";
+// const API_URL = "http://localhost:8800";
+const API_URL = "https://tricky-moth-shoe.cyclic.app";
 
-const fetchUserData = async () => {
-  const response = await fetch(
-    "https://tricky-moth-shoe.cyclic.app/fetchStudents"
-  );
-  return response.json();
-};
-
-const App= () => {
-  const [studentsData, setStudentsData] = useState(null);
-
-  useEffect(() => {
-    // Fetch the data when the component mounts
-    fetchUserData()
-      .then((data) => setStudentsData(data.data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
-         <Route index element={studentsData ? <PieChart Studentsdb={studentsData}/> : <div className="container mt-5">" Loading Data "</div>} /> 
-         <Route path="students" element={ 
-            <div className="container mt-5"> 
-              {studentsData ? (<StudentsManagement Studentsdb={studentsData} />) : (<div className="container mt-5">" Loading Data "</div>)} 
-            </div>}
-          /> 
+          <Route index element={<PieChart API_URL={API_URL} />} />
           <Route
-            path="fees"
+            path="students"
             element={
               <div className="container mt-5">
-                {studentsData ? (
-                  <List Studentsdb={studentsData} />
-                ) : (
-                  <div className="container mt-5">" Loading Data "</div>
-                )}
+                {<StudentsManagement API_URL={API_URL} />}
               </div>
             }
           />
-          <Route path="/feestatus/:studentid" element={<FeesPage />} />
+          <Route
+            path="fees"
+            element={
+              <div className="container mt-5">{<List API_URL={API_URL} />}</div>
+            }
+          />
+          <Route
+            path="/feestatus/:studentid"
+            element={<FeesPage API_URL={API_URL} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.replace("/login");
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
       <div className="container-fluid">
@@ -50,7 +54,12 @@ function Navbar() {
               </ul>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/logout">
+              <Link
+                className="nav-link"
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
                 Logout
               </Link>
             </li>
