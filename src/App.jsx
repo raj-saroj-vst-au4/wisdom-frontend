@@ -12,7 +12,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage API_URL={API_URL} />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<PieChart API_URL={API_URL} />} />
           <Route

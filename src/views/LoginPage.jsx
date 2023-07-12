@@ -1,9 +1,8 @@
 import { useState } from "react";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
-const API_URL = "http://localhost:8800";
 
-export const LoginPage = () => {
+export const LoginPage = ({ API_URL }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [incorrect, setIncorrect] = useState(true);
