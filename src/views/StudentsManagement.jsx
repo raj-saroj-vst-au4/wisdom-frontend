@@ -235,7 +235,9 @@ function StudentsManagement({ API_URL }) {
                     onClick={() => handleFeeStatus(student)}
                     className="btn btn-secondary"
                   >
-                    <i className="bi bi-wallet2"> Fee </i>
+                    <i className="bi bi-wallet2">
+                      {student.active ? " create" : ""} Fee
+                    </i>
                   </button>
                   {student.active ? (
                     <button
