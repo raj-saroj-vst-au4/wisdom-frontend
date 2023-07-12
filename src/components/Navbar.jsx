@@ -21,11 +21,6 @@ function Navbar() {
         <button
           className="navbar-toggler"
           type="button"
-          // data-bs-toggle="collapse"
-          // data-bs-target="#navbarSupportedContent"
-          // aria-controls="navbarSupportedContent"
-          // aria-expanded="false"
-          // aria-label="Toggle navigation"
           onClick={() => toggleNav()}
         >
           <span className="navbar-toggler-icon"></span>
@@ -72,22 +67,25 @@ function Navbar() {
                 </li>
               </ul>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                onClick={() => {
-                  handleLogout();
-                }}
-              >
-                Logout
-              </Link>
-            </li>
           </ul>
           <form className="d-flex">
             <a className="nav-link disabled" aria-disabled="true">
               Teacher - Ishwari
             </a>
           </form>
+          <br></br>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <button
+                className=" btn btn-danger"
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
