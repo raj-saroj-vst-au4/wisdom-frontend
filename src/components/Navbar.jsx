@@ -9,7 +9,6 @@ function Navbar() {
   };
 
   const toggleNav = () => {
-    console.log(expandedNav);
     setExpandedNav(!expandedNav);
   };
 

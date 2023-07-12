@@ -33,10 +33,11 @@ function AddStudentModal({ showModal, toggleModal, API_URL }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "x-access-token": token,
           },
           body: JSON.stringify({
             name,
-            number,
+            number: "+91" + number.toString(),
             standard,
             batch,
             fees,
@@ -45,7 +46,7 @@ function AddStudentModal({ showModal, toggleModal, API_URL }) {
         });
         if (response.ok) {
           toggleModal();
-          navigate("/students");
+          window.location.replace("/students");
         } else if (response.status === 401) {
           return window.location.replace("/login");
         }
@@ -95,13 +96,18 @@ function AddStudentModal({ showModal, toggleModal, API_URL }) {
               <div className="form-group row">
                 <label className="col-sm-3 col-form-label">Phone No.</label>
                 <div className="col-sm-9">
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="inputNumber"
-                    placeholder="Parents Phone"
-                    onChange={(e) => setNumber(e.target.value)}
-                  />
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <div className="input-group-text">+91</div>
+                    </div>
+                    <input
+                      type="number"
+                      className="form-control"
+                      id="inputNumber"
+                      placeholder="Parents Phone"
+                      onChange={(e) => setNumber(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <br />
