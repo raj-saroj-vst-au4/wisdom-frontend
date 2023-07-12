@@ -74,10 +74,6 @@ const PieChart = ({ API_URL }) => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const handleFeeStatus = (p) => {
-    console.log(p);
-  };
-
   const piedata = handlePieStats(studentsData);
   return (
     <>
