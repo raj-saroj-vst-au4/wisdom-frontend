@@ -16,12 +16,14 @@ function List({ API_URL }) {
   }
 
   const fetchUserData = async () => {
+    setIsLoading(true);
     const response = await fetch(`${API_URL}/fetchStudents`, {
       headers: {
         "x-access-token": token,
       },
     });
     if (response.ok) {
+      setIsLoading(false);
       return response.json();
     } else if (response.status === 401) {
       return window.location.replace("/login");
@@ -35,7 +37,7 @@ function List({ API_URL }) {
     ) {
       return window.location.replace("/login");
     }
-    setIsLoading(true);
+
     fetchUserData()
       .then((data) => {
         setStudentsdb(data.data);
@@ -43,7 +45,6 @@ function List({ API_URL }) {
       })
       .then((objData) => setFiltered(objData.filter((stdnt) => stdnt.active)))
       .catch((e) => console.log("Error Fetching data:", e));
-    setIsLoading(false);
   }, []);
 
   useEffect(() => {

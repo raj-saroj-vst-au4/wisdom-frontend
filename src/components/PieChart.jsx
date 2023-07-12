@@ -74,6 +74,10 @@ const PieChart = ({ API_URL }) => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  const handleFeeStatus = (p) => {
+    console.log(p);
+  };
+
   const piedata = handlePieStats(studentsData);
   return (
     <>
@@ -106,7 +110,7 @@ const PieChart = ({ API_URL }) => {
                     (p.pendingmonths > 2 ? "danger" : "warning")
                   }
                 >
-                  {p.name} has {p.pendingmonths} months fees pending !
+                  {p.name} has {p.pendingmonths} months fee pending !
                 </li>
               ) : (
                 ""
