@@ -11,8 +11,9 @@ function StudentsManagement({ API_URL }) {
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
+  const [reload, setReload] = useState(1);
 
-  useEffect(() => {
+  const fetchStudents = async () => {
     if (
       !token ||
       JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
@@ -20,21 +21,22 @@ function StudentsManagement({ API_URL }) {
       return window.location.replace("/login");
     }
     setIsLoading(true);
-    const fetchStudents = async () => {
-      const response = await fetch(`${API_URL}/fetchStudents`, {
-        headers: {
-          "x-access-token": token,
-        },
-      });
-      if (response.ok) {
-        const objectData = await response.json();
-        setStudentsdb(objectData.data);
-        setFiltered(objectData.data);
-      } else if (response.status === 401) {
-        return window.location.replace("/login");
-      }
-      setIsLoading(false);
-    };
+    const response = await fetch(`${API_URL}/fetchStudents`, {
+      headers: {
+        "x-access-token": token,
+      },
+    });
+    if (response.ok) {
+      const objectData = await response.json();
+      setStudentsdb(objectData.data);
+      setFiltered(objectData.data);
+    } else if (response.status === 401) {
+      return window.location.replace("/login");
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
     fetchStudents();
   }, []);
 
@@ -109,7 +111,7 @@ function StudentsManagement({ API_URL }) {
         },
       });
       if (response.ok) {
-        window.location.replace("/");
+        fetchStudents();
       } else if (response.status === 401) {
         return window.location.replace("/login");
       }
@@ -134,7 +136,7 @@ function StudentsManagement({ API_URL }) {
         },
       });
       if (response.ok) {
-        window.location.replace("/");
+        fetchStudents();
       } else if (response.status === 401) {
         return window.location.replace("/login");
       }
@@ -144,27 +146,34 @@ function StudentsManagement({ API_URL }) {
     setIsLoading(false);
   };
 
-  const handlePromo = async (studentid) => {
+  const handlePromo = async (studentid, name) => {
     if (
       !token ||
       JSON.parse(atob(token.split(".")[1])).exp * 1000 < Date.now()
     ) {
       return window.location.replace("/login");
     }
-    try {
-      setIsLoading(true);
-      const response = await fetch(`${API_URL}/promoteStudent/${studentid}`, {
-        headers: {
-          "x-access-token": token,
-        },
-      });
-      if (response.ok) {
-        navigate("/");
-      } else if (response.status === 401) {
-        return window.location.replace("/login");
+    const confirmed = window.confirm(
+      `Are you sure you want to promote ${name}?`
+    );
+    if (confirmed) {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${API_URL}/promoteStudent/${studentid}`, {
+          headers: {
+            "x-access-token": token,
+          },
+        });
+        if (response.ok) {
+          fetchStudents();
+        } else if (response.status === 401) {
+          return window.location.replace("/login");
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      console.log("Promotion cancelled");
     }
     setIsLoading(false);
   };
@@ -226,7 +235,7 @@ function StudentsManagement({ API_URL }) {
                   aria-label="Basic example"
                 >
                   <button
-                    onClick={() => handlePromo(student._id)}
+                    onClick={() => handlePromo(student._id, student.name)}
                     className="btn btn-primary"
                   >
                     <i className="bi bi bi-microsoft-teams"> Promote </i>
@@ -236,7 +245,7 @@ function StudentsManagement({ API_URL }) {
                     className="btn btn-secondary"
                   >
                     <i className="bi bi-wallet2">
-                      {student.active ? " create" : ""} Fee
+                      {student.active ? "" : " create"} Fee
                     </i>
                   </button>
                   {student.active ? (
