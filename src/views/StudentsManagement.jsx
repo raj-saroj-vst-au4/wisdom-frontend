@@ -11,7 +11,6 @@ function StudentsManagement({ API_URL }) {
   const [showStudentModal, setShowStudentModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
-  const [reload, setReload] = useState(1);
 
   const fetchStudents = async () => {
     if (
@@ -203,6 +202,63 @@ function StudentsManagement({ API_URL }) {
           </form>
         </nav>
       </div>
+
+      <div className="btn-group btn-group-justified d-flex justify-content-center">
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setFiltered(Studentsdb)}
+          >
+            All
+          </button>
+        </div>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() =>
+              setFiltered(Studentsdb.filter((student) => student.batch === 911))
+            }
+          >
+            9 to 11
+          </button>
+        </div>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() =>
+              setFiltered(Studentsdb.filter((student) => student.batch === 24))
+            }
+          >
+            2 to 4
+          </button>
+        </div>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() =>
+              setFiltered(Studentsdb.filter((student) => student.batch === 46))
+            }
+          >
+            4 to 6
+          </button>
+        </div>
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() =>
+              setFiltered(Studentsdb.filter((student) => student.batch === 79))
+            }
+          >
+            7 to 9
+          </button>
+        </div>
+      </div>
+      <br></br>
       <div className="accordion" id="accordionExample">
         {filtered.length === 0 && <h3> No Records Found</h3>}
         {filtered.map((student, index) => (
