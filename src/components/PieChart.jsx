@@ -95,7 +95,7 @@ const PieChart = ({ API_URL }) => {
       <Card border="dark" style={{ width: "100%", marginTop: "2rem" }}>
         <Card.Header>Reminder</Card.Header>
         <Card.Body>
-          <Card.Title>Pending Fees</Card.Title>
+          <Card.Title>Monthly Pending Fees</Card.Title>
           <ul className="list-group">
             {pd?.map((p) => {
               return p.pendingmonths >= 1 ? (
@@ -135,30 +135,3 @@ const PieChart = ({ API_URL }) => {
 };
 
 export default PieChart;
-
-{
-  /* <li
-                    key={p.id}
-                    className={
-                      "list-group-item list-group-item-" +
-                      (p.pendingmonths > 2 ? "danger" : "warning")
-                    }
-                  >
-                    {p.name} has {p.pendingmonths} months fee pending !
-                  </li>
-                  <li
-                    className="list-group-item btn-group d-flex justify-content-right"
-                    role="group"
-                    aria-label="Basic example"
-                  >
-                    <a
-                      href={`https://wa.me/${p.phone}`}
-                      className="btn btn-success"
-                    >
-                      <i className="bi bi-whatsapp" />
-                    </a>
-                    <a href={`tel:${p.number}`} className="btn btn-secondary">
-                      <i className="bi bi-telephone-forward" />
-                    </a>
-                  </li> */
-}
