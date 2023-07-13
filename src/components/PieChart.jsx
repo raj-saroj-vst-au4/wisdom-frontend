@@ -99,14 +99,29 @@ const PieChart = ({ API_URL }) => {
           <ul className="list-group">
             {pd?.map((p) => {
               return p.pendingmonths >= 1 ? (
-                <li
-                  key={p.id}
-                  className={
-                    "list-group-item list-group-item-" +
-                    (p.pendingmonths > 2 ? "danger" : "warning")
-                  }
-                >
-                  {p.name} has {p.pendingmonths} months fee pending !
+                <li key={p.id} className="input-group">
+                  <div
+                    className={`form-control list-group-item list-group-item-${
+                      p.pendingmonths > 2 ? "danger" : "warning"
+                    }`}
+                    aria-describedby="button-addon4"
+                  >
+                    {p.name} : {p.pendingmonths} Pending !
+                  </div>
+                  <div
+                    className="input-group-append btn-group"
+                    id="button-addon4"
+                  >
+                    <a
+                      href={`https://wa.me/${p.num}`}
+                      className="btn btn-success"
+                    >
+                      <i className="bi bi-whatsapp" />
+                    </a>
+                    <a href={`tel:${p.num}`} className="btn btn-secondary">
+                      <i className="bi bi-telephone-forward" />
+                    </a>
+                  </div>
                 </li>
               ) : (
                 ""
@@ -120,3 +135,30 @@ const PieChart = ({ API_URL }) => {
 };
 
 export default PieChart;
+
+{
+  /* <li
+                    key={p.id}
+                    className={
+                      "list-group-item list-group-item-" +
+                      (p.pendingmonths > 2 ? "danger" : "warning")
+                    }
+                  >
+                    {p.name} has {p.pendingmonths} months fee pending !
+                  </li>
+                  <li
+                    className="list-group-item btn-group d-flex justify-content-right"
+                    role="group"
+                    aria-label="Basic example"
+                  >
+                    <a
+                      href={`https://wa.me/${p.phone}`}
+                      className="btn btn-success"
+                    >
+                      <i className="bi bi-whatsapp" />
+                    </a>
+                    <a href={`tel:${p.number}`} className="btn btn-secondary">
+                      <i className="bi bi-telephone-forward" />
+                    </a>
+                  </li> */
+}
