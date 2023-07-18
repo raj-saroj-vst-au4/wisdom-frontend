@@ -1,4 +1,4 @@
-# Wisdom Nodejs Backend
+# Wisdom Reactjs frontend
 
 ![App Logo](link-to-app-logo.png)
 
