@@ -16,17 +16,11 @@ this is the Frontend(Reactjs) part of the open-source project
 
 ## Demo
 
-You can check out the live instance of the app [here](https://wisdomclasses.netlify.app/).
+You can check out the live instance gif below of the app deployed at [here](https://wisdomclasses.netlify.app/).
 
 ## Screenshots
 
-![Screenshot 1](poc1.jpeg)
-![Screenshot 2](poc2.jpeg)
-![Screenshot 3](poc3.jpeg)
-![Screenshot 4](poc4.jpeg)
-![Screenshot 5](poc5.jpeg)
-![Screenshot 6](poc6.jpeg)
-![Screenshot 7](poc7.jpeg)
+![Screenshot 1](poc.gif)
 
 ## Installation
 
