@@ -20,8 +20,13 @@ You can check out the live instance of the app [here](https://wisdomclasses.netl
 
 ## Screenshots
 
-![Screenshot 1](link-to-screenshot-1.png)
-![Screenshot 2](link-to-screenshot-2.png)
+![Screenshot 1](poc1.jpeg)
+![Screenshot 2](poc2.jpeg)
+![Screenshot 3](poc3.jpeg)
+![Screenshot 4](poc4.jpeg)
+![Screenshot 5](poc5.jpeg)
+![Screenshot 6](poc6.jpeg)
+![Screenshot 7](poc7.jpeg)
 
 ## Installation
 
